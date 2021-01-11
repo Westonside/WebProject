@@ -5,4 +5,4 @@ from .models import User
 
 # Create your views here.
 def index(request):
-    return render(request, "webiste/login.html")
+    return render(request, "website/login.html")
