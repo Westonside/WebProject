@@ -77,23 +77,24 @@
     </style>
 </head>
 <body>
-    <form class="container-xs mx-auto" action="">
+    <form id="register-form" class="container-xs mx-auto" action="{% url 'register'%}" method="post">
+        {% csrf_token %}
         <h2 class="text-center">Register</h2>
         <small>Email</small>
-        <input class="w-100 mt-1 mb-4" type="text" placeholder="enter email">
+        <input class="w-100 mt-1 mb-4" type="text" name="email" placeholder="enter email">
 
         <div class="flex-container">
             <div>
                 <div>
                     <small>Firstname</small>
                 </div>
-                <input class="w-90 mt-1 mb-4" type="text" placeholder="enter firstname"> 
+                <input class="w-90 mt-1 mb-4" type="text" name="firstname" placeholder="enter firstname"> 
             </div>
             <div>
                 <div>
                     <small>Lastname</small>
                 </div>
-                <input class="w-90 mt-1 mb-4" type="text" placeholder="enter lastname"> 
+                <input class="w-90 mt-1 mb-4" type="text" name="lastname" placeholder="enter lastname"> 
             </div>
         </div>
 
@@ -105,9 +106,9 @@
         </div>
         <small>Confirm Password</small>
         <div style="position:relative;">
-            <input id="passwordField" class="w-100 mt-1 mb-4" type="password" placeholder="enter password">
+            <input id="passwordField" class="w-100 mt-1 mb-4" type="password" name="password" placeholder="enter password">
         </div>
-        <button>submit</button>
+        <button type="submit" onclick="submitForm()">submit</button>
     </form>
     <script>
         showPass = false
@@ -122,6 +123,9 @@
             b.classList.remove("hide");
             inpType = (showPass)? "text":"password"
             pwdField.setAttribute("type",inpType)
+        }
+        function submitForm(){
+            document.getElementById("register-form").submit()
         }
     </script>
 </body>

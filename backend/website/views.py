@@ -16,10 +16,10 @@ def index(request):
 def loginUser(request):
     
     if request.method == "POST":
-        userEmail = request.POST["email"]
-        passWord = request.POST["password"]
+        user_email = request.POST["email"]
+        password = request.POST["password"]
 
-        user = authenticate(request, email = userEmail, password = passWord)
+        user = authenticate(request, email = user_email, password = password)
 
         if user is not None:
             login(request,user)
@@ -33,22 +33,22 @@ def logOut(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
-
 def registerUser(request):
     if request.method == "POST":
-        userName = request.POST["firstname"]
-        lastName = request.post["lastname"]
-        userName = request.POST["username"]
+        
+        firstName = request.POST["firstname"]
+        lastName = request.POST["lastname"]
+        # userName = request.POST["username"]
         email = request.POST["email"]
         passWord = request.POST["password"]
 
-        try:
-            user = User.objects.create_user(userName, email, passWord)
+        try: 
+            user = User.objects.create_user( username = email,email = email,password = passWord, first_name = firstName, last_name = lastName)
             user.save()
             login(request,user)
-            return HttpResponse("username taken")
-        except IntegrityError:
             return HttpResponseRedirect(reverse("index"))
+        except IntegrityError:
+            return HttpResponse("failure")
     
     elif request.method == "GET":
         return render(request, "website/register.html")
