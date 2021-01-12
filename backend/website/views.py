@@ -11,9 +11,9 @@ def index(request):
     if request.user.is_anonymous:
         return HttpResponseRedirect(reverse("login"))
 
-    return HttpResponse("The user logged")
+    return HttpResponse("The user logged in")
 
-def login(request):
+def loginUser(request):
     
     if request.method == "POST":
         userEmail = request.POST["email"]
@@ -45,13 +45,13 @@ def registerUser(request):
         try:
             user = User.objects.create_user(userName, email, passWord)
             user.save()
-            login(request, user)
+            login(request,user)
             return HttpResponse("username taken")
         except IntegrityError:
             return HttpResponseRedirect(reverse("index"))
     
     elif request.method == "GET":
-        return render(request, "website/login.html")
+        return render(request, "website/register.html")
 
 
 
