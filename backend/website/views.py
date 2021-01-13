@@ -11,16 +11,16 @@ def index(request):
     if request.user.is_anonymous:
         return HttpResponseRedirect(reverse("login"))
 
-    return HttpResponse("The user logged in")
+    return render(request, "website/index.html")
 
 def loginUser(request):
     
     if request.method == "POST":
         user_email = request.POST["email"]
-        password = request.POST["password"]
-
-        user = authenticate(request, email = user_email, password = password)
-
+        user_password = request.POST["password"]
+        print(user_email, user_password)
+        user = authenticate(request, username = user_email, password = user_password)
+        
         if user is not None:
             login(request,user)
             return HttpResponseRedirect(reverse("index"))

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            #title{
+                float:left;
+            }
+            .nav_list{
+                float:right;
+                list-style:none;
+                margin-left:2em;
+            }
+            .nav{
+                /* background-color: red; */
+            }
+            .nav_list li{
+                display: inline-block;
+                margin:1em 1.5em;
+                /* float: left; */
+                
+            }
+            li a{
+                text-decoration: none;
+                color:#fff;
+                font-family: sans-serif;
+
+            }
+            .top_nav{
+                margin-left:5em;
+            }
+            #user{
+                position: relative;
+                margin-top: 1em;
+                left: 50%;
+            }
+            
+            .top_nav_link::after{
+                content:'';
+                display:block;
+                width: 0;
+                height: .2em;
+                background: #fff;
+                transition: width .3s
+            }
+            .top_nav_link:hover{
+                color: #fff;
+                text-decoration: none;
+            }
+            .top_nav_link:hover::after{
+                width:100%;
+                transition: width .3s;
+            }
+            body{
+                background-color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "nav">
+            <h1 id ="title">title</h1>
+            <div class = "top_nav">
+                <ul class="nav_list">
+                    <li><a href = "#" class="top_nav_link">Home</a></li>
+                    <li><a href = "#" class="top_nav_link">Home</a></li>
+                    <li><a href = "#" class="top_nav_link">Home</a></li>
+                </ul>
+                
+            </div>
+            <p id="user"><span class = "user"><a href ="#">{{request.user}}</a></span><button>logout</button></p>
+        </div>
+        
+    </body>
+</html>
