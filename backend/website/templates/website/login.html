@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'website/font-awesome/css/all.min.css'%}">
     <style>
         *{
             font-family: arial;
@@ -58,39 +59,62 @@
             opacity: 0.8;
         }
         .hide{
+            /* visibility: hidden; */
             display:none;
         }
     </style>
 </head>
 <body>
     <form class="container-xs mx-auto" action="">
-        <h2 class="text-center">Login</h2>
-        <small>Email</small>
-        <input class="w-100 mt-1 mb-4" type="text" placeholder="enter email">
-        <small>Password</small>
-        <div style="position:relative;">
-            <i class="far fa-eye pwd-eye hide"></i>
-            <i class="far fa-eye-slash pwd-eye"></i>
-            <input id="passwordField" class="w-100 mt-1 mb-4" type="password" placeholder="enter password">
+        <div>
+            <h2 class="text-center">Login</h2>
+            <small>Email</small>
+            <input class="w-100 mt-1 mb-4" type="text" placeholder="enter email">
+            <small>Password</small>
+        </div>
+        <div class="paswdField-container" style="position:relative;">
+            <i class="far fa-eye pwd-eye hide" name="firstpoo"></i>
+            <i class="far fa-eye-slash pwd-eye"name="firstpoo_s"></i>
+            <input class="passwordField w-100 mt-1 mb-4" type="password"  value="first" placeholder="enter password">
+        </div>
+        <div class="paswdField-container" style="position:relative;">
+            <i class="far fa-eye pwd-eye hide" name="secondspoo"></i>
+            <i class="far fa-eye-slash pwd-eye"name="secondspoo_2"></i>
+            <input class="passwordField w-100 mt-1 mb-4" type="password" value="second" placeholder="enter password">
         </div>
         <button>submit</button>
         <p id ="register_text">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
     </form>
     <script>
-        showPass = false
-        eyeOn = document.getElementsByClassName("fa-eye")[0]
-        eyeOff = document.getElementsByClassName("fa-eye-slash")[0]
-        eyeOn.addEventListener("click",()=>{switchEye(eyeOn,eyeOff)})
-        eyeOff.addEventListener("click",()=>{switchEye(eyeOff,eyeOn)}) //hide self turn off on other
-        pwdField = document.getElementById("passwordField")
-        function switchEye(a,b){
-            showPass = !showPass
-            a.classList.add("hide");
-            b.classList.remove("hide");
-            inpType = (showPass)? "text":"password"
-            pwdField.setAttribute("type",inpType)
+        newPwdObj = (inp) =>{
+            let showPass = false
+            return {
+                switch: (e)=>{
+                    return function(){
+                        showPass = !showPass
+                        this.classList.add("hide"); 
+                        e.classList.remove("hide");
+                        inpType = (showPass)? "text":"password"
+                        inp.setAttribute("type",inpType)
+                    }
+                }
+            }
         }
-
+        pwdObjs = []
+        pwdContainers = document.getElementsByClassName("paswdField-container")
+        for(container of pwdContainers){
+            ary = []
+            for(e of container.children) {
+                ary.push(e)
+            }
+            pwdObjs.push(ary)
+        }
+        for (obj of pwdObjs){
+            [ico1,ico2,inp] = [obj[0],obj[1],obj[2]] // icon1,icon2,input
+            ff = newPwdObj(inp)
+            ico1.addEventListener("click",ff.switch(ico2))
+            ico2.addEventListener("click",ff.switch(ico1))
+        }
     </script>
 </body>
 </html>
