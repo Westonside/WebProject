@@ -7,7 +7,7 @@
     margin-left:2em;
 }
 .nav{
-    /* background-color: red; */
+    background: black;
 }
 .nav_list li{
     display: inline-block;
@@ -47,7 +47,7 @@ li a{
     transition: width .3s;
 }
 body{
-    background-color: black;
+    /* background-color: black; */
 }
 
 .user{
