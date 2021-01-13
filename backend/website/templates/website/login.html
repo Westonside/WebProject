@@ -65,22 +65,20 @@
     </style>
 </head>
 <body>
-    <form class="container-xs mx-auto" action="">
-        <div>
-            <h2 class="text-center">Login</h2>
-            <small>Email</small>
-            <input class="w-100 mt-1 mb-4" type="text" placeholder="enter email">
-            <small>Password</small>
-        </div>
+    <form id="login-form" class="container-xs mx-auto" action="{% url 'login'%}" method="post">
+        <h2 class="text-center">Login</h2>
+        {% if loginError %}
+            <p>An error has occured</p>
+        {% endif %}
+        
+        <small>Email</small>
+        <input class="w-100 mt-1 mb-4" type="text" name = "email" placeholder="enter email">
+        {% csrf_token %}
+        <small>Password</small>
         <div class="paswdField-container" style="position:relative;">
-            <i class="far fa-eye pwd-eye hide" name="firstpoo"></i>
-            <i class="far fa-eye-slash pwd-eye"name="firstpoo_s"></i>
-            <input class="passwordField w-100 mt-1 mb-4" type="password"  value="first" placeholder="enter password">
-        </div>
-        <div class="paswdField-container" style="position:relative;">
-            <i class="far fa-eye pwd-eye hide" name="secondspoo"></i>
-            <i class="far fa-eye-slash pwd-eye"name="secondspoo_2"></i>
-            <input class="passwordField w-100 mt-1 mb-4" type="password" value="second" placeholder="enter password">
+            <i class="far fa-eye pwd-eye hide"></i>
+            <i class="far fa-eye-slash pwd-eye"></i>
+            <input id="passwordField" class="w-100 mt-1 mb-4" type="password" name = "password" placeholder="enter password">
         </div>
         <button>submit</button>
         <p id ="register_text">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>

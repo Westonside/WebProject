@@ -5,10 +5,24 @@
     <head>
         <title>{% block title %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src = "{% static 'website/script.js' %}"></script>
-        <link href = "{% static 'website/styling.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'website/font-awesome/css/all.min.css'%}">
+        <link rel="stylesheet" href="{% static 'website/styling.css'%}">
     </head>
     <body>
+        <div class = "nav">
+            <h1 id ="title">title</h1>
+            <div class = "top_nav">
+                <ul class="nav_list">
+                    <li><a href = "#" class="top_nav_link">Home</a></li>
+                    <li><a href = "#" class="top_nav_link">Home</a></li>
+                    <li><a href = "#" class="top_nav_link">Home</a></li>
+                </ul>
+                
+            </div>
+            <p id="user"><span class = "user"><a href ="#">{{request.user}}</a></span><span class="user"><a id="logout_button" href="{% url 'logout' %}">logout</a></span></p>
+        </div>
         {% block body %}
         {% endblock %}
     </body>
