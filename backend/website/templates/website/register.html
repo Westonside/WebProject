@@ -32,15 +32,18 @@
         </div>
 
         <small>Password</small>
-        <div class="paswdField-container" style="position:relative;">
+        <div class="passwordField-container" style="position:relative;">
             <i class="far fa-eye-slash fa-eye pwd-eye"></i>
-            <input class="passwordField w-100 mt-1 mb-4" type="password" name="password" placeholder="enter password">
+            <input id="pwd-inp" class="passwordField w-100 mt-1 mb-4" type="password" name="password" placeholder="enter password">
+        </div>
+        <div class="strength-indicator mb-4 hide">
         </div>
         <small>Confirm password</small>
-        <div class="paswdField-container" style="position:relative;">
+        <div class="passwordField-container" style="position:relative;">
             <i class="far fa-eye-slash fa-eye pwd-eye"></i>
             <input class="passwordField w-100 mt-1 mb-4" type="password" placeholder="enter password">
         </div>
+        <button type="sumbit" onclick="submitForm()">submit</button>
     </form>
     <script>
         newPwdObj = (inp) =>{
@@ -57,7 +60,7 @@
             }
         }
         pwdObjs = []
-        pwdContainers = document.getElementsByClassName("paswdField-container")
+        pwdContainers = document.getElementsByClassName("passwordField-container")
         for(container of pwdContainers){
             ary = []
             for(e of container.children) {
@@ -70,11 +73,26 @@
             ff = newPwdObj(inp)
             ico.addEventListener("click",ff.switchFactory())
         }
-        {% comment %} eye = document.querySelector('.pwd-eye')
-        eye.addEventListener("click",function(){this.classList.toggle("fa-eye-slash")}) {% endcomment %}
         function submitForm(){
             document.getElementById("register-form").submit()
         }
+        pwdInp = document.querySelector('#pwd-inp')
+    
+        indicator = document.querySelector('.strength-indicator')
+        setInterval(function(){
+            if (pwdInp.value.length > 0 && indicator.classList.contains("hide")){
+                indicator.classList.toggle("hide")
+            }
+            window.requestAnimationFrame(function(){
+                    if (pwdInp.value.length >= 8 && !indicator.classList.contains("strength-100")){
+                        indicator.classList.add("strength-100")
+                    }else if (pwdInp.value.length > 4 && !indicator.classList.contains("strength-66")){
+                        indicator.classList.add("strength-66")
+                    }else if (pwdInp.value.length > 0 && !indicator.classList.contains("strength-33")){
+                        indicator.classList.add("strength-33")
+                    }
+            })
+        },100)
     </script>
 </body>
 </html>
