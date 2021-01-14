@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'website/font-awesome/css/all.min.css'%}">
-    <link rel="stylesheet" href="{% static 'variables.css'%}">
+    <link rel="stylesheet" href="{% static 'website/variables.css'%}">
 </head>
 <body>
     <form id="login-form" class="container-xs mx-auto" action="{% url 'login'%}" method="post">
@@ -22,7 +22,7 @@
         <div class="paswdField-container" style="position:relative;">
             <i class="far fa-eye pwd-eye hide"></i>
             <i class="far fa-eye-slash pwd-eye"></i>
-            <input id="passwordField" class="w-100 mt-1 mb-4" type="password" name = "password" placeholder="enter password">
+            <input id="passwordField" class="w-100 mt-1 mb-4" type="password" name="password" placeholder="enter password">
         </div>
         <button>submit</button>
         <p id ="register_text">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
@@ -57,6 +57,10 @@
             ico1.addEventListener("click",ff.switch(ico2))
             ico2.addEventListener("click",ff.switch(ico1))
         }
+        function submitForm(){
+            document.getElementById("register-form").submit()
+        }
+
     </script>
 </body>
 </html>
