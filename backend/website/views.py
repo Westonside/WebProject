@@ -4,6 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from .models import User
 from django.db import IntegrityError
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Create your views here.
 
@@ -13,11 +15,15 @@ def index(request):
 
     return render(request, "website/index.html")
 
+@csrf_exempt
 def loginUser(request):
     
     if request.method == "POST":
-        user_email = request.POST["email"]
-        user_password = request.POST["password"]
+        data = json.loads(request.body)
+        user_email = data["email"]
+        user_password = data["password"]
+        # user_email = request.POST["email"]
+        # user_password = request.POST["password"]
         print(user_email, user_password)
         user = authenticate(request, username = user_email, password = user_password)
         
@@ -25,7 +31,7 @@ def loginUser(request):
             login(request,user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return HttpResponse("invalid user")
+            return JsonResponse({"success": False})
     else:
         return render(request, "website/login.html")
 
