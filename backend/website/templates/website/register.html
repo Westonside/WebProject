@@ -49,7 +49,7 @@
         newPwdObj = (inp) =>{
             let showPass = false
             return {
-                switchFactory: ()=>{
+                switch_factory: ()=>{
                     return function(){
                         showPass = !showPass
                         this.classList.toggle("fa-eye-slash")
@@ -59,20 +59,24 @@
                 }
             }
         }
-        pwdObjs = []
-        pwdContainers = document.getElementsByClassName("passwordField-container")
-        for(container of pwdContainers){
-            ary = []
-            for(e of container.children) {
-                ary.push(e)
+        load_pwdEyes = ()=>{
+            pwdObjs = []
+            pwdContainers = document.getElementsByClassName("passwordField-container")
+            for(container of pwdContainers){
+                ary = []
+                for(e of container.children) {
+                    ary.push(e)
+                }
+                pwdObjs.push(ary)
             }
-            pwdObjs.push(ary)
+            for (obj of pwdObjs){
+                [ico,inp] = [obj[0],obj[1]] // icon1,icon2,input
+                ff = newPwdObj(inp)
+                ico.addEventListener("click",ff.switch_factory())
+            }
         }
-        for (obj of pwdObjs){
-            [ico,inp] = [obj[0],obj[1]] // icon1,icon2,input
-            ff = newPwdObj(inp)
-            ico.addEventListener("click",ff.switchFactory())
-        }
+        load_pwdEyes()
+
         function submitForm(){
             document.getElementById("register-form").submit()
         }

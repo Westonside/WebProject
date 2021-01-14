@@ -1,9 +1,6 @@
 *{
     font-family: arial;
 }
-.mx-auto{
-    margin: 0 auto;
-}
 .container-sm{
     max-width: 560px;
 }
@@ -16,6 +13,12 @@
 .w-100{
     width:100%;
 }
+.w-90{
+    width: 90%;
+}
+.mx-auto{
+    margin: 0 auto;
+}
 .mb-3{
     margin-bottom: 8px;
 }
@@ -27,6 +30,9 @@
 }
 .block{
     display:block;
+}
+.mx-auto{
+    margin: 0 auto;
 }
 small{
     font-size: 0.9rem;
@@ -49,7 +55,31 @@ input[type=text]:focus,input[type=password]:focus{
     right: 0px;
     opacity: 0.8;
 }
+.strength-indicator{
+    height: 10px;
+    width: 0%;
+    transition: width 1s;
+}
+.strength-33{
+    background-color: red;
+    width:33.33%;
+}
+.strength-66{
+    background-color: yellow;
+    width:66.66%;
+}
+.strength-100{
+    background-color: green;
+    width:100%;
+}
 .hide{
     /* visibility: hidden; */
     display:none;
+}
+
+.flex-container{
+    display:flex;
+}
+.flex-container > div{
+    width:50%;
 }
