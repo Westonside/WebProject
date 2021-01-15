@@ -61,6 +61,7 @@
             opacity: 0.8;
         }
         .hide{
+            /* visibility: hidden; */
             display:none;
         }
     </style>
@@ -73,7 +74,7 @@
         <input class="w-100 mt-1 mb-4" type="text" name = "email" placeholder="enter email" id="email_field">
         {% csrf_token %}
         <small>Password</small>
-        <div style="position:relative;">
+        <div class="paswdField-container" style="position:relative;">
             <i class="far fa-eye pwd-eye hide"></i>
             <i class="far fa-eye-slash pwd-eye"></i>
             <input id="password_field" class="w-100 mt-1 mb-4" type="password" name = "password" placeholder="enter password">
@@ -82,20 +83,35 @@
         <p id ="register_text">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
     </form>
     <script>
-        showPass = false
-        eyeOn = document.getElementsByClassName("fa-eye")[0]
-        eyeOff = document.getElementsByClassName("fa-eye-slash")[0]
-        eyeOn.addEventListener("click",()=>{switchEye(eyeOn,eyeOff)})
-        eyeOff.addEventListener("click",()=>{switchEye(eyeOff,eyeOn)}) //hide self turn off on other
-        pwdField = document.getElementById("passwordField")
-        function switchEye(a,b){
-            showPass = !showPass
-            a.classList.add("hide");
-            b.classList.remove("hide");
-            inpType = (showPass)? "text":"password"
-            pwdField.setAttribute("type",inpType)
+        newPwdObj = (inp) =>{
+            let showPass = false
+            return {
+                switch: (e)=>{
+                    return function(){
+                        showPass = !showPass
+                        this.classList.add("hide"); 
+                        e.classList.remove("hide");
+                        inpType = (showPass)? "text":"password"
+                        inp.setAttribute("type",inpType)
+                    }
+                }
+            }
         }
-
+        pwdObjs = []
+        pwdContainers = document.getElementsByClassName("paswdField-container")
+        for(container of pwdContainers){
+            ary = []
+            for(e of container.children) {
+                ary.push(e)
+            }
+            pwdObjs.push(ary)
+        }
+        for (obj of pwdObjs){
+            [ico1,ico2,inp] = [obj[0],obj[1],obj[2]] // icon1,icon2,input
+            ff = newPwdObj(inp)
+            ico1.addEventListener("click",ff.switch(ico2))
+            ico2.addEventListener("click",ff.switch(ico1))
+        }
     </script>
 </body>
 </html>
