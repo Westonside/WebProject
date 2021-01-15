@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () =>{
     document.getElementById('login-form').onsubmit = logInSubmit;
-    
+    document.getElementById('login_fail').style.display = 'none';
 });
 
 function logInSubmit(){
@@ -34,6 +34,9 @@ function logInSubmit(){
                window.location.href = response.url;
            }
        })
+    }
+    else{
+        document.getElementById('login_fail').style.display = 'block';
     }
     return false;
     

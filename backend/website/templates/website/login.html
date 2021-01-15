@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'website/font-awesome/css/all.min.css'%}">
     <script src = "{% static 'website/script.js' %}"></script>
     <style>
@@ -67,10 +68,7 @@
 <body>
     <form id="login-form" class="container-xs mx-auto" action="">
         <h2 class="text-center">Login</h2>
-        {% if loginError %}
-            <p>An error has occured</p>
-        {% endif %}
-        
+        <div class="alert alert-danger" role="alert" id="login_fail">Unsuccessful login attempt!</div>
         <small>Email</small>
         <input class="w-100 mt-1 mb-4" type="text" name = "email" placeholder="enter email" id="email_field">
         {% csrf_token %}
