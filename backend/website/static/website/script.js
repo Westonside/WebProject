@@ -33,9 +33,14 @@ function logInSubmit(){
                //if the server is redirecting the user then follow the url of the redirect
                window.location.href = response.url;
            }
+           else{
+            document.getElementById('login_fail').innerHTML = "Please enter a valid username and/or password"
+            document.getElementById('login_fail').style.display = 'block';
+           }
        })
     }
     else{
+        document.getElementById('login_fail').innerHTML = "Please fill out all fields"
         document.getElementById('login_fail').style.display = 'block';
     }
     return false;

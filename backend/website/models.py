@@ -35,3 +35,26 @@ class Likes(models.Model):
             
     def __str__(self):
         return(f"{self.like_user} liked = {self.liked} the post {self.post_id}")
+
+
+class comment(models.Model):
+    post_id = models.ForeignKey('Post', on_delete = models.CASCADE)
+    comment_user = models.ForeignKey('User', on_delete = models.CASCADE)
+    content = models.TextField(blank = True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return(f"{self.comment_user} commented on {self.post_id}: {self.content} at {self.timestamp}")
+
+    def serialize(self,request):
+        return{
+            "post_id": self.post_id,
+            "comment_user": self.comment_user,
+            "content": self.content,
+            "timestamp": self.timestamp.strftime("%b %-d %Y, %-I:%M %p"),
+            "can_edit": True if self.comment_user == request.user else False
+            
+        }
+
+
+
