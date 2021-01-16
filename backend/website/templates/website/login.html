@@ -64,6 +64,23 @@
             /* visibility: hidden; */
             display:none;
         }
+        .strength-indicator{
+            height: 10px;
+            width: 0%;
+            transition: width 1s;
+        }
+        .strength-33{
+            background-color: red;
+            width:33.33%;
+        }
+        .strength-66{
+            background-color: yellow;
+            width:66.66%;
+        }
+        .strength-100{
+            background-color: green;
+            width:100%;
+        }
     </style>
 </head>
 <body>
@@ -86,32 +103,54 @@
         newPwdObj = (inp) =>{
             let showPass = false
             return {
-                switch: (e)=>{
+                switch_factory: ()=>{
                     return function(){
                         showPass = !showPass
-                        this.classList.add("hide"); 
-                        e.classList.remove("hide");
+                        this.classList.toggle("fa-eye-slash")
                         inpType = (showPass)? "text":"password"
                         inp.setAttribute("type",inpType)
                     }
                 }
             }
         }
-        pwdObjs = []
-        pwdContainers = document.getElementsByClassName("paswdField-container")
-        for(container of pwdContainers){
-            ary = []
-            for(e of container.children) {
-                ary.push(e)
+        load_pwdTogglers = ()=>{
+            pwdObjs = []
+            pwdContainers = document.getElementsByClassName("passwordField-container")
+            for(container of pwdContainers){
+                ary = []
+                for(e of container.children) {
+                    ary.push(e)
+                }
+                pwdObjs.push(ary)
             }
-            pwdObjs.push(ary)
+            for (obj of pwdObjs){
+                [ico,inp] = [obj[0],obj[1]] // icon1,icon2,input
+                ff = newPwdObj(inp)
+                ico.addEventListener("click",ff.switch_factory())
+            }
         }
-        for (obj of pwdObjs){
-            [ico1,ico2,inp] = [obj[0],obj[1],obj[2]] // icon1,icon2,input
-            ff = newPwdObj(inp)
-            ico1.addEventListener("click",ff.switch(ico2))
-            ico2.addEventListener("click",ff.switch(ico1))
+        load_pwdTogglers()
+        function submitForm(){
+            document.getElementById("register-form").submit()
         }
+        pwdInp = document.querySelector('#pwd-inp')
+    
+        //strength indicator bars
+        indicator = document.querySelector('.strength-indicator')
+        setInterval(function(){
+            if (pwdInp.value.length > 0 && indicator.classList.contains("hide")){
+                indicator.classList.toggle("hide")
+            }
+            window.requestAnimationFrame(function(){
+                    if (pwdInp.value.length >= 8 && !indicator.classList.contains("strength-100")){
+                        indicator.classList.add("strength-100")
+                    }else if (pwdInp.value.length > 4 && !indicator.classList.contains("strength-66")){
+                        indicator.classList.add("strength-66")
+                    }else if (pwdInp.value.length > 0 && !indicator.classList.contains("strength-33")){
+                        indicator.classList.add("strength-33")
+                    }
+            })
+        },100)
     </script>
 </body>
 </html>
