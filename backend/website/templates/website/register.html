@@ -74,6 +74,23 @@
         .flex-container > div{
             width:50%;
         }
+        .strength-indicator{
+            height: 10px;
+            width: 0%;
+            transition: width 1s;
+        }
+        .strength-33{
+            background-color: red;
+            width:33.33%;
+        }
+        .strength-66{
+            background-color: yellow;
+            width:66.66%;
+        }
+        .strength-100{
+            background-color: green;
+            width:100%;
+        }
     </style>
 </head>
 <body>
@@ -99,15 +116,14 @@
         </div>
 
         <small>Password</small>
-        <div class="paswdField-container" style="position:relative;">
-            <i class="far fa-eye pwd-eye hide"></i>
-            <i class="far fa-eye-slash pwd-eye"></i>
-            <input class="passwordField w-100 mt-1 mb-4" type="password" placeholder="enter password">
+        <div class="passwordField-container" style="position:relative;">
+            <i class="far fa-eye fa-eye-slash pwd-eye"></i>
+            <input id="pwd-input" class="passwordField w-100 mt-1 mb-4" type="password" placeholder="enter password">
         </div>
+        <div class="strength-indicator mb-4 hide"></div>
         <small>Confirm Password</small>
-        <div class="paswdField-container" style="position:relative;">
-            <i class="far fa-eye pwd-eye hide"></i>
-            <i class="far fa-eye-slash pwd-eye"></i>
+        <div class="passwordField-container" style="position:relative;">
+            <i class="far fa-eye fa-eye-slash pwd-eye"></i>
             <input class="passwordField w-100 mt-1 mb-4" type="password" placeholder="enter password">
         </div>
         <button type="submit" onclick="submitForm()">submit</button>
@@ -149,6 +165,7 @@
     
         //strength indicator bars
         indicator = document.querySelector('.strength-indicator')
+        pwdInp = document.querySelector('#pwd-input')
         setInterval(function(){
             if (pwdInp.value.length > 0 && indicator.classList.contains("hide")){
                 indicator.classList.toggle("hide")

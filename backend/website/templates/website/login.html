@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'website/font-awesome/css/all.min.css'%}">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<!--  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src = "{% static 'website/script.js' %}"></script>
     <style>
-        *{
+        /* *{
             font-family: arial;
         }
         .mx-auto{
@@ -38,8 +40,8 @@
         }
         .block{
             display:block;
-        }
-        small{
+        } */
+        /* small{
             font-size: 0.9rem;
         }
         input[type=text],input[type=password]{
@@ -51,7 +53,7 @@
         input[type=text]:focus,input[type=password]:focus{
             border-style: inset;
             border: 2px solid rgb(66,123,255,0.65);
-        }
+        } */
         .pwd-eye{
             font-size:1.1rem;
             cursor:pointer;
@@ -91,10 +93,11 @@
         <input class="w-100 mt-1 mb-4" type="text" name = "email" placeholder="enter email" id="email_field">
         {% csrf_token %}
         <small>Password</small>
-        <div class="paswdField-container" style="position:relative;">
-            <i class="far fa-eye pwd-eye hide"></i>
-            <i class="far fa-eye-slash pwd-eye"></i>
-            <input id="password_field" class="w-100 mt-1 mb-4" type="password" name = "password" placeholder="enter password">
+        <div class="passwordField-container" style="position:relative;">
+            <i class="far fa-eye fa-eye-slash pwd-eye"></i>
+            <div class="input-group">
+                <input id="password_field" class="form-control w-100 mt-1 mb-4" type="password" name = "password" placeholder="enter password">
+            </div>
         </div>
         <button>submit</button>
         <p id ="register_text">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
@@ -131,26 +134,9 @@
         }
         load_pwdTogglers()
         function submitForm(){
-            document.getElementById("register-form").submit()
+            document.getElementById("login-form").submit()
         }
-        pwdInp = document.querySelector('#pwd-inp')
     
-        //strength indicator bars
-        indicator = document.querySelector('.strength-indicator')
-        setInterval(function(){
-            if (pwdInp.value.length > 0 && indicator.classList.contains("hide")){
-                indicator.classList.toggle("hide")
-            }
-            window.requestAnimationFrame(function(){
-                    if (pwdInp.value.length >= 8 && !indicator.classList.contains("strength-100")){
-                        indicator.classList.add("strength-100")
-                    }else if (pwdInp.value.length > 4 && !indicator.classList.contains("strength-66")){
-                        indicator.classList.add("strength-66")
-                    }else if (pwdInp.value.length > 0 && !indicator.classList.contains("strength-33")){
-                        indicator.classList.add("strength-33")
-                    }
-            })
-        },100)
     </script>
 </body>
 </html>
