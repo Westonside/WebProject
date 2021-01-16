@@ -33,7 +33,7 @@
             <label>Password</label>
             <div class="passwordField-container" style="position:relative;">
                 <i class="far fa-eye fa-eye-slash pwd-eye"></i>
-                <input id="pwd-input" class="form-control passwordField w-100 mt-1 " type="password" placeholder="enter password">
+                <input id="pwd-input" class="form-control passwordField w-100 mt-1 " name="password" type="password" placeholder="enter password">
             </div>
         </div>
         <div class="strength-indicator mb-4 d-none"></div>
@@ -77,6 +77,7 @@
             }
         }
         load_pwdTogglers()
+
         function submitForm(){
             document.getElementById("register-form").submit()
         }
@@ -84,21 +85,30 @@
         //strength indicator bars
         indicator = document.querySelector('.strength-indicator')
         pwdInp = document.querySelector('#pwd-input')
-        function toggleD(){
-            indicator.classList.toggle("d-none")
-        }
+        let iContains = (s)=>{ return indicator.classList.contains(s)}
         setInterval(function(){
-            if (pwdInp.value.length > 0 && indicator.classList.contains("d-none")){
+            if (pwdInp.value.length > 0 && iContains("d-none")){
                 indicator.classList.toggle("d-none")
             }
             window.requestAnimationFrame(function(){
-                    if (pwdInp.value.length >= 8 && !indicator.classList.contains("strength-100")){
+                if (pwdInp.value.length >= 8 ){
+                    if (!indicator.classList.contains("strength-100")){
                         indicator.classList.add("strength-100")
-                    }else if (pwdInp.value.length > 4 && !indicator.classList.contains("strength-66")){
-                        indicator.classList.add("strength-66")
-                    }else if (pwdInp.value.length > 0 && !indicator.classList.contains("strength-33")){
-                        indicator.classList.add("strength-33")
                     }
+                }else if (pwdInp.value.length > 4 ){
+                    if (!iContains("strength-66") ){
+                        indicator.classList.toggle("strength-66")
+                    }else if (iContains("strength-100")){
+                        indicator.classList.remove("strength-100")
+                    }
+                }else if (pwdInp.value.length > 0 ){
+                    if(!indicator.classList.contains("strength-33")){
+                        indicator.classList.add("strength-33")
+                    } 
+                    else if (iContains("strength-66")){
+                        indicator.classList.remove("strength-66")
+                    }
+                }
             })
         },100)
     </script>
