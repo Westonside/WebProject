@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="{% static 'website/font-awesome/css/all.min.css'%}">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-<!--  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{%static 'website/form.css' %}">
     <script src = "{% static 'website/script.js' %}"></script>
     <style>
         /* *{
@@ -54,54 +53,28 @@
             border-style: inset;
             border: 2px solid rgb(66,123,255,0.65);
         } */
-        .pwd-eye{
-            font-size:1.1rem;
-            cursor:pointer;
-            position: absolute;
-            top: 6px;
-            right: 0px;
-            opacity: 0.8;
-        }
-        .hide{
-            /* visibility: hidden; */
-            display:none;
-        }
-        .strength-indicator{
-            height: 10px;
-            width: 0%;
-            transition: width 1s;
-        }
-        .strength-33{
-            background-color: red;
-            width:33.33%;
-        }
-        .strength-66{
-            background-color: yellow;
-            width:66.66%;
-        }
-        .strength-100{
-            background-color: green;
-            width:100%;
-        }
     </style>
 </head>
 <body>
-    <form id="login-form" class="container-xs mx-auto" action="">
+    <form id="login-form" class="login-container mt-5" action="">
+        {% csrf_token %}
         <h2 class="text-center">Login</h2>
         <div class="alert alert-danger" role="alert" id="login_fail">Unsuccessful login attempt!</div>
-        <small>Email</small>
-        <input class="w-100 mt-1 mb-4" type="text" name = "email" placeholder="enter email" id="email_field">
-        {% csrf_token %}
-        <small>Password</small>
-        <div class="passwordField-container" style="position:relative;">
-            <i class="far fa-eye fa-eye-slash pwd-eye"></i>
-            <div class="input-group">
-                <input id="password_field" class="form-control w-100 mt-1 mb-4" type="password" name = "password" placeholder="enter password">
+        <div class="form-group mb-3">
+            <lablel>Email</lablel>
+            <input class="form-control w-100 mt-1 " type="text" name = "email" placeholder="Enter email" id="email_field">
+        </div>
+        <div class="form-group mb-3">
+            <label>Password</label>
+            <div class="passwordField-container" style="position:relative;">
+                <i class="far fa-eye fa-eye-slash pwd-eye"></i>
+                <input id="pwd-input" class="form-control w-100 mt-1" type="password" name = "password" placeholder="Enter password">
             </div>
         </div>
-        <button>submit</button>
+        <button class="btn btn-primary mb-3">submit</button>
         <p id ="register_text">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
     </form>
+
     <script>
         newPwdObj = (inp) =>{
             let showPass = false
