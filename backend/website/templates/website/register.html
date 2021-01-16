@@ -8,7 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'website/font-awesome/css/all.min.css'%}">
     <link rel="stylesheet" href="{% static 'website/form.css'%}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
     <form id="register-form" class="login-container mt-4" action="{% url 'register'%}" method="post">
@@ -91,6 +91,10 @@
                 indicator.classList.toggle("d-none")
             }
             window.requestAnimationFrame(function(){
+                if (pwdInp.value.length == 0){
+                    indicator.classList.remove("strength-100")
+                    indicator.classList.remove("strength-66")
+                }
                 if (pwdInp.value.length >= 8 ){
                     if (!indicator.classList.contains("strength-100")){
                         indicator.classList.add("strength-100")
@@ -98,17 +102,14 @@
                 }else if (pwdInp.value.length > 4 ){
                     if (!iContains("strength-66") ){
                         indicator.classList.toggle("strength-66")
-                    }else if (iContains("strength-100")){
-                        indicator.classList.remove("strength-100")
                     }
+                    indicator.classList.remove("strength-100")
                 }else if (pwdInp.value.length > 0 ){
                     if(!indicator.classList.contains("strength-33")){
                         indicator.classList.add("strength-33")
                     } 
-                    else if (iContains("strength-66")){
-                        indicator.classList.remove("strength-66")
-                    }
-                }
+                    indicator.classList.remove("strength-66")
+                } 
             })
         },100)
     </script>

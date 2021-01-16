@@ -3,5 +3,9 @@
 {% block title %}Main Page {% endblock %}
 
 {% block body %}
-    
+    <div class="container-sm">
+        {%for post in posts %}
+            <b>{{post.title}},</b>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -1,0 +1,19 @@
+{%extends "website/layout.html" %}
+{%block title%}new post{%endblock%}
+{%block body%}
+   <div class="container-sm mx-auto mt-4 " style="max-width: 750px;">
+      <h3 class="text-center font-italic font-weight-bold mb-4">Create a new post!🔥</h3> 
+      <form action="">
+         <div class="form-group">
+            <input class="form-control" type="text" placeholder="Title" >
+         </div>
+         <div class="form-group">
+            <textarea class="form-control" type="text" rows="12" placeholder="Content" ></textarea>
+         </div>
+         <div class="form-group">
+            <input class="form-control" type="text" placeholder="Tags ex: Science,Math,Art,Javascript..." >
+         </div>
+         <button class="btn" style="background-color: rgba(250, 72, 1, 0.932);color:white;">Post!</button>
+      </form>
+   </div>
+{%endblock%}
