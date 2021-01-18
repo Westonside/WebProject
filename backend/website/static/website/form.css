@@ -1,0 +1,38 @@
+:root{
+    --form-inpC:#272b30;
+}
+.login-container {
+    max-width: 550px;    
+    margin: 0 auto;
+}
+.login-container input{
+    color: var(--form-inpC);
+}
+.login-container input:focus{
+    color: var(--form-inpC);
+}
+.pwd-eye{
+    font-size:1.2rem;
+    cursor:pointer;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    opacity: 0.8;
+}
+.strength-indicator{
+    height: 10px;
+    width: 0%;
+    transition: width 1s;
+}
+.strength-33{
+    background-color: red;
+    width:33.33%;
+}
+.strength-66{
+    background-color: yellow;
+    width:66.66%;
+}
+.strength-100{
+    background-color: green;
+    width:100%;
+}
