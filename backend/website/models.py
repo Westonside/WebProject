@@ -53,7 +53,6 @@ class comment(models.Model):
             "content": self.content,
             "timestamp": self.timestamp.strftime("%b %-d %Y, %-I:%M %p"),
             "can_edit": True if self.comment_user == request.user else False
-            
         }
 
 

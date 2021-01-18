@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () =>{
-    document.getElementById('login-form').onsubmit = logInSubmit;
+    document.getElementById('login-form').onsubmit = () =>{logInSubmit(); return false}
     document.getElementById('login_fail').style.display = 'none';
 });
 
@@ -11,7 +11,7 @@ function logInSubmit(){
     //add additional regex for checking the input
 
     let email = document.getElementById('email_field');
-    let password = document.getElementById('password_field');
+    let password = document.getElementById('pwd-input');
     success = email.value && password.value ? true : false;
     if(!success){
         email.style.borderColor = !email.value ? 'red' : 'none';
@@ -36,6 +36,7 @@ function logInSubmit(){
            else{
             document.getElementById('login_fail').innerHTML = "Please enter a valid username and/or password"
             document.getElementById('login_fail').style.display = 'block';
+            return false;
            }
        })
     }
