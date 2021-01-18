@@ -53,3 +53,7 @@ body{
 .user{
     margin-left:.5em;
 }
+
+#login_fail{
+    display: none;
+}

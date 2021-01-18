@@ -36,6 +36,8 @@ function logInSubmit(){
            else{
             document.getElementById('login_fail').innerHTML = "Please enter a valid username and/or password"
             document.getElementById('login_fail').style.display = 'block';
+            email.value = '';
+            password.value = '';
             return false;
            }
        })
@@ -44,6 +46,8 @@ function logInSubmit(){
         document.getElementById('login_fail').innerHTML = "Please fill out all fields"
         document.getElementById('login_fail').style.display = 'block';
     }
+    email.value = '';
+    password.value = '';
     return false;
     
 }

@@ -59,6 +59,9 @@ def registerUser(request):
     elif request.method == "GET":
         return render(request, "website/register.html")
 
+def postPost(request):
+    print('posting route')
+
 
 
     
