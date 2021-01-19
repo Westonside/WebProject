@@ -17,15 +17,17 @@ class Post(models.Model):
         return(f"{self.user} posted {self.title}: {self.content}")
 
     def serialize(self,request):
-        liked = Likes.objects.filter(postId=self.pk, likeUser = request.user, liked=True).first()
+        liked = Likes.objects.filter(id=self.pk, like_user = request.user, liked=True).first()
         return{
-            "user": self.user,
+            "user": self.user.username,
+            "pk": self.pk,
             "title": self.title,
-            "content": self.conent,
+            "content": self.content,
             "tags": self.tags,
             "likes": Likes.objects.filter(post_id=self.pk, liked=True).count(),
             "timestamp": self.timestamp.strftime("%b %-d %Y, %-I:%M %p"),
-            "liked": False if liked is None else True if liked.liked is True else False
+            "liked": False if liked is None else True if liked.liked is True else False,
+            "canedit": True if self.user == request.user else False
             }
 
 class Likes(models.Model):
@@ -37,7 +39,7 @@ class Likes(models.Model):
         return(f"{self.like_user} liked = {self.liked} the post {self.post_id}")
 
 
-class comment(models.Model):
+class Comment(models.Model):
     post_id = models.ForeignKey('Post', on_delete = models.CASCADE)
     comment_user = models.ForeignKey('User', on_delete = models.CASCADE)
     content = models.TextField(blank = True)

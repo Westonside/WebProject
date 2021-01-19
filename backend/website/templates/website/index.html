@@ -3,9 +3,31 @@
 {% block title %}Main Page {% endblock %}
 
 {% block body %}
-    <div class="container-sm">
-        {%for post in posts %}
-            <b>{{post.title}},</b>
-        {% endfor %}
+<div class="container-sm">
+    <h2> posts</h2>
+    <button id="new_post" class="btn btn-primary">New Post</button>
+
+    <ul id="posts_list"></ul>
+</div>
+
+<div id="popup_post">
+    <div class="create_post_head">
+        <div class="title">
+            <p id="edit_create_title">Create a new post</p>
+
+            <button class="close-button" id="close_popup">&times;</button>
+        </div>
     </div>
+    <div class="create_post_body">
+        <form id="new_post_form">
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="title" placeholder="Post title" id = "post_title">
+            </div>
+            
+            <textarea class="form-control" id="post_content" rows="3" placeholder="Post contents" type = "text"></textarea>
+            <button class="btn btn-primary mb-2" id="submit_post">Submit</button>
+        </form>
+    </div>
+</div>
+
 {% endblock %}

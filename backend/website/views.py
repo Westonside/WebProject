@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from .models import User
+from .models import User, Comment, Post, Likes
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -35,9 +36,11 @@ def loginUser(request):
     else:
         return render(request, "website/login.html")
 
+@login_required
 def logOut(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
 
 def registerUser(request):
     if request.method == "POST":
@@ -59,8 +62,41 @@ def registerUser(request):
     elif request.method == "GET":
         return render(request, "website/register.html")
 
+@login_required
+def getPost(request,section):
+    if request.method != "GET":
+        return HttpResponse("Wrong request type", status = 403)
+    
+    start = int(request.GET.get("start") or 0)
+    end = int(request.GET.get("end") or (start+9))
+
+    if section == "all":
+        posts = Post.objects.all()
+
+    posts.order_by("-timestamp").all()
+    
+    posts = posts[start:end]
+
+    return JsonResponse([post.serialize(request) for post in posts], safe = False)
+
+
+@login_required
+@csrf_exempt
 def postPost(request):
-    print('posting route')
+    if request.method != "POST":
+        return HttpResponse("Invalid request type", 403)
+    data = json.loads(request.body)
+    
+    title = data["title"]
+    contents = data["contents"]
+    
+    print(title,contents)
+
+    post = Post(user = request.user, title = title, content = contents)
+    post.save()
+    return JsonResponse({"success": True})
+    
+
 
 
 
