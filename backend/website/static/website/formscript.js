@@ -75,16 +75,20 @@ function loginSubmit(){
     let fdata = getFormData("login-form")
     let success = true;
     let fins = getFormInputs("login-form")
+    login_fail = document.querySelector("#login_fail")
     //add additional regex for checking the input
     fins.forEach( e => {
         if (!e.value){
             success = false
             e.style.borderColor = 'red';
-            document.querySelector('#login_fail').innerHTML = "Please fill out all fields"
-            document.querySelector('#login_fail').classList.toggle('d-none');
         }
     })
-    if (!success){return}
+    if (!success){
+        console.log(login_fail.classList)
+        login_fail.innerHTML = "Please fill out all fields"
+        login_fail.classList.remove('d-none');
+        return
+    }
     fetch('/register', {
         method: 'POST',
         body: fdata,
@@ -97,8 +101,8 @@ function loginSubmit(){
         else{
             fdata.forEach((i,k)=>{ console.log(`${i},${k}`)})
             console.log("failed")
-            document.getElementById('login_fail').innerHTML = "Please enter a valid username and/or password"
-            document.getElementById('login_fail').classList.toggle('d-none');
+            login_fail.innerHTML = "Please enter a valid username and/or password"
+            login_fail.classList.remove('d-none');
         }
     })
 }
@@ -106,16 +110,19 @@ function registerSubmit(){
     let fdata = getFormData("register-form")
     let success = true;
     let fins = getFormInputs("register-form")
+    login_fail = document.querySelector("#login_fail")
     //add additional regex for checking the input
     fins.forEach( e => {
         if (!e.value){
             success = false
             e.style.borderColor = 'red';
-            document.querySelector('#login_fail').innerHTML = "Please fill out all fields"
-            document.querySelector('#login_fail').classList.toggle('d-none');
         }
     })
-    if (!success){return}
+    if (!success){
+        login_fail.innerHTML = "Please fill out all fields"
+        login_fail.classList.remove('d-none');
+        return
+    }
     fetch('/register', {
         method: 'POST',
         body: fdata,
@@ -128,8 +135,8 @@ function registerSubmit(){
         else{
             fdata.forEach((i,k)=>{ console.log(`${i},${k}`)})
             console.log("failed")
-            document.getElementById('login_fail').innerHTML = "Please enter a valid username and/or password"
-            document.getElementById('login_fail').classList.toggle('d-none');
+            login_fail.innerHTML = "Please enter a valid username and/or password"
+            login_fail.classList.remove('d-none');
         }
     })
 }

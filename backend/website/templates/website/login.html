@@ -14,7 +14,7 @@
     <form id="login-form" class="login-container mt-5" action="">
         <!-- {% csrf_token %} -->
         <h2 class="text-center">Login</h2>
-        <div class="alert alert-danger" role="alert" id="login_fail" style="display:none;">Unsuccessful login attempt!</div>
+        <div class="alert alert-danger d-none" role="alert" id="login_fail" >Unsuccessful login attempt!</div>
         <div class="form-group mb-3">
             <lablel>Email</lablel>
             <input class="form-control w-100 mt-1 " type="text" name = "email" placeholder="Enter email" id="email_field">
@@ -26,7 +26,7 @@
                 <input id="pwd-input" class="form-control w-100 mt-1" type="password" name = "password" placeholder="Enter password">
             </div>
         </div>
-        <button class="btn btn-primary mb-3">submit</button>
+        <button class="btn btn-primary mb-3" type="button" onclick="loginSubmit()">submit</button>
         <p id ="register_text">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
     </form>
 
@@ -61,9 +61,12 @@
             }
         }
         load_pwdTogglers()
-        // function submitForm(){
-        //     document.getElementById("login-form").submit()
-        // }
+        //keyboard handling
+        document.addEventListener("keyup", function(event){
+            if (event.keyCode == 13){
+                loginSubmit()
+            }
+        })
     
     </script>
 </body>

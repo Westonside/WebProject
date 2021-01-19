@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="{% static 'website/font-awesome/css/all.min.css'%}">
     <link rel="stylesheet" href="{% static 'website/form.css'%}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src = "{% static 'website/formscript.js' %}"></script>
 </head>
 <body>
     <form id="register-form" class="login-container mt-4" action="{% url 'register'%}" method="post">
         {% csrf_token %}
         <h2 class="text-center">Register</h2>
+        <div class="alert alert-danger d-none" role="alert" id="login_fail" >Unsuccessful login attempt!</div>
         <div class="form-group mb-3">
             <lablel>Email</lablel>
             <input class="form-control w-100 mt-1 " type="text" name = "email" placeholder="Enter email" id="email_field">
@@ -44,7 +46,7 @@
                 <input class="form-control passwordField w-100 mt-1" type="password" placeholder="enter password">
             </div>
         </div>
-        <button class="btn btn-primary"type="submit" onclick="submitForm()">submit</button>
+        <button class="btn btn-primary"type="button" onclick="registerSubmit()">submit</button>
     </form>
     <script>
         newPwdObj = (inp) =>{
@@ -77,17 +79,19 @@
             }
         }
         load_pwdTogglers()
-
-        function submitForm(){
-            document.getElementById("register-form").submit()
-        }
+        //keyboard handling
+        document.addEventListener("keyup", function(event){
+            if (event.keyCode == 13){
+                registerSubmit()
+            }
+        })
     
         //strength indicator bars
         indicator = document.querySelector('.strength-indicator')
         pwdInp = document.querySelector('#pwd-input')
-        let iContains = (s)=>{ return indicator.classList.contains(s)}
+        let icontains = (s)=>{ return indicator.classList.contains(s)}
         setInterval(function(){
-            if (pwdInp.value.length > 0 && iContains("d-none")){
+            if (pwdInp.value.length > 0 && icontains("d-none")){
                 indicator.classList.toggle("d-none")
             }
             window.requestAnimationFrame(function(){
@@ -100,7 +104,7 @@
                         indicator.classList.add("strength-100")
                     }
                 }else if (pwdInp.value.length > 4 ){
-                    if (!iContains("strength-66") ){
+                    if (!icontains("strength-66") ){
                         indicator.classList.toggle("strength-66")
                     }
                     indicator.classList.remove("strength-100")
