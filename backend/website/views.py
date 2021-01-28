@@ -20,11 +20,11 @@ def index(request):
 def loginUser(request):
     
     if request.method == "POST":
-        data = json.loads(request.body)
-        user_email = data["email"]
-        user_password = data["password"]
-        # user_email = request.POST["email"]
-        # user_password = request.POST["password"]
+        # data = json.loads(request.body)
+        # user_email = data["email"]
+        # user_password = data["password"]
+        user_email = request.POST["email"]
+        user_password = request.POST["password"]
         print(user_email, user_password)
         user = authenticate(request, username = user_email, password = user_password)
         
@@ -89,10 +89,11 @@ def postPost(request):
     
     title = data["title"]
     contents = data["contents"]
+    coverImg = data["coverImg"]
     
     print(title,contents)
 
-    post = Post(user = request.user, title = title, content = contents)
+    post = Post(user = request.user, title = title, content = contents,coverImg=coverImg)
     post.save()
     return JsonResponse({"success": True})
     

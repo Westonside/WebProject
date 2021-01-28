@@ -9,10 +9,13 @@ document.addEventListener('DOMContentLoaded', () =>{
     //when the user wants to close the popup
     document.getElementById('close_popup').addEventListener('click', () =>{closePopup()});
     //when the user posts the post content
-    document.getElementById('new_post_form').addEventListener('submit', postPost);
+    document.getElementById('new_post_form').addEventListener('submit', ()=>{postPost();console.log('submited through func')});
 });
 
-
+stringtohtml = (str) =>{
+    const parser = new DOMParser()
+    return parser.parseFromString(str,"text/html").body.firstChild
+}
 function getPosts(start, end, section){
     //the user will increment the posts section when they reach the bottom of the page ex: 0:10 reaches bottom 11:21...
     console.log(start,end, section);
@@ -35,10 +38,12 @@ function addPostDom(data){
         // create a new li for each and add the content 
         let li = document.createElement('li');
         li.setAttribute('class', 'post');
-
+        
         let div = document.createElement('div');
         div.setAttribute('class','post_container');
         div.setAttribute('id', val.pk);
+
+        let coverImg = stringtohtml(`<img src=${val.coverImg}>`)
 
         let user = document.createElement('p');
         user.innerHTML = val.user;
@@ -79,6 +84,7 @@ function addPostDom(data){
         
         div.appendChild(user);
         div.appendChild(title);
+        div.append(coverImg);
         div.appendChild(content);
         div.appendChild(timeEdit);
         li.appendChild(div);
@@ -104,6 +110,7 @@ function postPost(e){
     // console.log(form.elements);
     let title = document.getElementById('post_title');
     let content = document.getElementById('post_content');
+    let coverImg = document.getElementById('post_cover_url');
     console.log(title.value )
     let success = title.value && content.value ? true : false;
     if(!success){
@@ -115,7 +122,8 @@ function postPost(e){
             method: 'POST',
             body: JSON.stringify({
                 title: title.value,
-                contents: content.value
+                contents: content.value,
+                coverImg: coverImg.value,
             })
         })
         .then(response => console.log(response.json()))

@@ -10,6 +10,7 @@ class Post(models.Model):
     user = models.ForeignKey('User', on_delete = models.CASCADE)
     title = models.TextField(blank=True)
     content = models.TextField(blank = True)
+    coverImg = models.TextField(default="https://i.imgur.com/BBcy6Wc.jpg",null=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     tags = models.TextField(blank=True)
     
@@ -23,6 +24,7 @@ class Post(models.Model):
             "pk": self.pk,
             "title": self.title,
             "content": self.content,
+            "coverImg":self.coverImg,
             "tags": self.tags,
             "likes": Likes.objects.filter(post_id=self.pk, liked=True).count(),
             "timestamp": self.timestamp.strftime("%b %-d %Y, %-I:%M %p"),

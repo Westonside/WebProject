@@ -89,7 +89,7 @@ function loginSubmit(){
         login_fail.classList.remove('d-none');
         return
     }
-    fetch('/register', {
+    fetch('/login', {
         method: 'POST',
         body: fdata,
     }).then(response =>{
